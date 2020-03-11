@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from fastapi import FastAPI
-#import sqlite3
 import uvicorn
 import time
 import json
