@@ -64,6 +64,7 @@ notary_pubkeys =  {
     "patchkez_SH": "03f45e9beb5c4cd46525db8195eb05c1db84ae7ef3603566b3d775770eba3b96ee",
     "decker_AR": "03ffdf1a116300a78729608d9930742cd349f11a9d64fcc336b8f18592dd9c91bc"
 }
+
 validator_pubkeys =  {
     "SYNC_24": "02317cf599fb502d96ac36fa239f9cf308825738fbbe0d3237f783f895ab4e5fee", 
 }
