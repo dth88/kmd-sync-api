@@ -19,14 +19,14 @@ from pubkeys import validator_pubkeys, notary_pubkeys
 
 def start_ticker(ticker):
     ticker_launch = ''
-    with open('../assetchains.old') as f:
+    with open(sys.path[0] + '/assetchains.old') as f:
         lines = f.readlines()
     #remove \n
     lines = [x.strip() for x in lines]
     #get the ticker_launch command
     for line in lines:
         if ticker in line:
-            ticker_launch = line
+            ticker_launch = line.split(" ")[:-1]
 
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
