@@ -12,26 +12,40 @@ import oraclelib
 import logging
 from tickers import ac_tickers
 from pubkeys import validator_pubkeys, notary_pubkeys
-
-
-
+from launch_params import ticker_params
 
 
 def start_ticker(ticker):
     ticker_launch = ''
-    with open(sys.path[0] + '/assetchains.old') as f:
-        lines = f.readlines()
-    #remove \n
-    lines = [x.strip() for x in lines]
     #get the ticker_launch command
-    for line in lines:
-        if ticker in line:
-            ticker_launch = line.split(" ")[:-1]
-
+    try:
+        ticker_launch = ticker_params[ticker].split(" ")[:-1]
+    except e:
+        print(e)
+    #if ticker exists open up a process
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
         subprocess.Popen(ticker_launch, stdout=ticker_output, stderr=ticker_output, universal_newlines=True)
-        print('success')
+
+
+def stop_ticker(ticker):
+    try:
+        rpc = set_rpc_proxy(ticker)
+        print(rpc.stop())
+    except Exception as e:
+        print(ticker + " : " + str(e))
+        pass
+
+
+def getinfo(ticker):
+    try:
+        rpc = set_rpc_proxy(ticker)
+        print(rpc.getinfo())
+    except Exception as e:
+        print(ticker + " : " + str(e))
+        pass
+
+
 
 
 def set_rpc_proxy(ticker):
@@ -71,18 +85,24 @@ def set_rpc_proxy(ticker):
 
 # Clean ticker data folder
 def clean_chain_data(ticker):
-    stop_result = globals()["assetchain_proxy_{}".format(ticker)].stop()
-    #logger.info(ticker + " stopped!")
-    time.sleep(30)
     ac_dir = str(kmd_dir + '/' + ticker + '/')
     shutil.rmtree(ac_dir)
-    #logger.info(ac_dir+" deleted")
 
 
+def start_all_tickers():
+    for ticker in ac_tickers:
+        start_ticker(ticker)
+
+
+def stop_all_tickers():
+    for ticker in ac_tickers:
+        stop_ticker(ticker)
 
 
 
 
 if __name__ == "__main__":
-    ticker = 'AXO'
-    start_ticker(ticker)
+    #for ticker in ac_tickers:
+    #    getinfo(ticker)
+    stop_all_tickers()   
+    

@@ -47,4 +47,4 @@ async def chain_sync_stats(ticker: str = "ALL"):
 
 if __name__ == "__main__":
     format = '%(asctime)s %(levelname)-8s %(message)s'
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="95.217.134.179", port=80)
