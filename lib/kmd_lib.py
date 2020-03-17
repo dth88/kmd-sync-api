@@ -15,12 +15,13 @@ def start_ticker(ticker):
     #get the ticker_launch command
     try:
         ticker_launch = ticker_params[ticker].split(" ")[:-1]
-    except e:
-        print(e)
+    except Exception as e:
+        print(str(e))
     #if ticker exists open up a process
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
         subprocess.Popen(ticker_launch, stdout=ticker_output, stderr=ticker_output, universal_newlines=True)
+        print('success')
 
 
 def stop_ticker(ticker):
@@ -29,7 +30,10 @@ def stop_ticker(ticker):
         print(rpc.stop())
     except Exception as e:
         print(ticker + " : " + str(e))
-    clean_ticker_data(ticker)
+
+
+def check_if_ticker_stopped(ticker):
+    pass
 
 
 def getinfo(ticker):
@@ -39,7 +43,6 @@ def getinfo(ticker):
     except Exception as e:
         print(ticker + " : " + str(e))
         pass
-
 
 
 
@@ -82,11 +85,11 @@ def clean_ticker_data(ticker):
     ac_dir = str(kmd_dir + ticker + '/')
     try:
         shutil.rmtree(ac_dir)
-    except FileNotFoundError, OSError:
+    except FileNotFoundError:
         pass
 
 
-def clean_all_ticker_data(ticker):
+def clean_all_ticker_data():
     for ticker in ac_tickers:
         clean_ticker_data(ticker)
 
@@ -102,11 +105,15 @@ def stop_all_tickers():
 
 
 
-
 #if __name__ == "__main__":
+    #ticker = "AXO"
+    #start_ticker(ticker)
     #for ticker in ac_tickers:
-    #    getinfo(ticker)
+    #getinfo(ticker)
     #stop_all_tickers()
+    #stop_ticker(ticker)
+    #clean_ticker_data(ticker)
+    #clean_all_ticker_data()
 
 
 
