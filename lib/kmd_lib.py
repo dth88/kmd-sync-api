@@ -2,12 +2,17 @@ from slickrpc import Proxy
 import time
 import subprocess
 import platform
+import pycurl
 import os
 import re
 import sys
+import zipfile
 import json
 import shutil
 import logging
+import urllib.request
+#from launch_params import ticker_params
+#from tickers import ac_tickers
 
 
 def start_ticker(ticker):
@@ -16,33 +21,52 @@ def start_ticker(ticker):
     try:
         ticker_launch = ticker_params[ticker].split(" ")[:-1]
     except Exception as e:
-        print(str(e))
+        return(str(e))
     #if ticker exists open up a process
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
         subprocess.Popen(ticker_launch, stdout=ticker_output, stderr=ticker_output, universal_newlines=True)
-        print('success')
+        return('Sync of ' + ticker + ' has started!')
 
 
 def stop_ticker(ticker):
     try:
         rpc = set_rpc_proxy(ticker)
-        print(rpc.stop())
+        return(rpc.stop())
     except Exception as e:
-        print(ticker + " : " + str(e))
+        return(ticker + " : " + str(e))
 
 
-def check_if_ticker_stopped(ticker):
-    pass
-
-
-def getinfo(ticker):
+def get_sync_stats(ticker):
     try:
         rpc = set_rpc_proxy(ticker)
-        print(rpc.getinfo())
+        info = rpc.getinfo()
+        return({
+            "coin" : info['name'],
+            "synced" : info['synced'],
+            "blocks" : info['blocks'],
+            "longestchain" : info['longestchain'],
+        })
     except Exception as e:
-        print(ticker + " : " + str(e))
         pass
+
+
+def get_all_sync_stats():
+    stats = {}
+    amount = 0
+    for ticker in ac_tickers:
+        current = get_sync_stats(ticker)
+        if current:
+            stats[ticker] = current
+    
+    for k,v in stats.items():
+        try:
+            if v["coin"]:
+                amount += 1
+        except TypeError:
+            pass
+
+    return({"amount" : "currently {} assetchains are syncing".format(amount), "stats" : stats})
 
 
 
@@ -85,6 +109,7 @@ def clean_ticker_data(ticker):
     ac_dir = str(kmd_dir + ticker + '/')
     try:
         shutil.rmtree(ac_dir)
+        return('cleaning ' + ticker + ' folder')
     except FileNotFoundError:
         pass
 
@@ -92,16 +117,31 @@ def clean_ticker_data(ticker):
 def clean_all_ticker_data():
     for ticker in ac_tickers:
         clean_ticker_data(ticker)
+    return('cleaning assetchains folders')
 
 
 def start_all_tickers():
     for ticker in ac_tickers:
         start_ticker(ticker)
+    return('starting all tickers')
 
 
 def stop_all_tickers():
     for ticker in ac_tickers:
         stop_ticker(ticker)
+    return('stopping all tickers')
+
+
+def setup_binary(link):
+    urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
+    os.remove('/root/komodo/komodod')
+    os.remove('/root/komodo/komodo-cli')
+    with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
+        zip_ref.extractall('/root/komodo')
+    return({"changed to new binary"})
+    
+
+
 
 
 
@@ -109,7 +149,7 @@ def stop_all_tickers():
     #ticker = "AXO"
     #start_ticker(ticker)
     #for ticker in ac_tickers:
-    #getinfo(ticker)
+    #get_sync_stats(ticker)
     #stop_all_tickers()
     #stop_ticker(ticker)
     #clean_ticker_data(ticker)
