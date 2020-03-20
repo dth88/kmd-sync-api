@@ -9,10 +9,9 @@ import logging
 from lib import kmd_lib
 
 
-
-
 ### API CALLS
 app = FastAPI()
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to Sync Status API. See /docs for all methods"}

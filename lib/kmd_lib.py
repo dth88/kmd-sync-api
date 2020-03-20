@@ -18,10 +18,13 @@ import urllib.request
 def start_ticker(ticker):
     ticker_launch = ''
     #get the ticker_launch command
-    try:
-        ticker_launch = ticker_params[ticker].split(" ")[:-1]
-    except Exception as e:
-        return(str(e))
+    if 'KMD' in ticker:
+        ticker_launch = 'komodod -deamon'.split(" ")
+    else:
+        try:
+            ticker_launch = ticker_params[ticker].split(" ")[:-1]
+        except Exception as e:
+            return(str(e))
     #if ticker exists open up a process
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
@@ -66,7 +69,7 @@ def get_all_sync_stats():
         except TypeError:
             pass
 
-    return({"amount" : "currently {} assetchains are syncing".format(amount), "stats" : stats})
+    return({"amount" : str(amount), "stats" : stats})
 
 
 
