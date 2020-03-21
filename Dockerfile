@@ -1,3 +1,5 @@
-FROM tiangolo/uvicorn-gunicorn:python3.6-alpine3.8
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+
+RUN pip install slick-bitcoinrpc
 
 COPY ./app /app

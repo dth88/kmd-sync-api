@@ -1,6 +1,6 @@
-__pycache__/
-lib/__pycache__/
-lib/assetchains.old
-lib/ticker_output/
-lib/*_7776
-*_7776
+app/__pycache__/
+app/lib/__pycache__/
+app/lib/assetchains.old
+app/lib/ticker_output/
+app/lib/*_7776
+app/*_7776

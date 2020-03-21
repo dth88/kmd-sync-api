@@ -68,6 +68,5 @@ async def upload_binary(*, link : str = Form(...)):
 
 
 
-if __name__ == "__main__":
-    format = '%(asctime)s %(levelname)-8s %(message)s'
-    uvicorn.run(app, host="95.217.134.179", port=80)
+#if __name__ == "__main__":
+#    uvicorn.run(app, host="95.217.134.179", port=80)
