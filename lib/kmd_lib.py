@@ -142,9 +142,6 @@ def setup_binary(link):
     with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     return({"changed to new binary"})
-    
-
-
 
 
 

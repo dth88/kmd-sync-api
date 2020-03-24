@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from fastapi import FastAPI, Form
 import uvicorn
+import socket
 import time
 import json
 import sys
@@ -12,9 +13,10 @@ from lib import kmd_lib
 ### API CALLS
 app = FastAPI()
 
+
 @app.get("/")
 async def root():
-    return {"message": "Welcome to Sync Status API. See /docs for all methods"}
+    return {"message": "Hi, I'm komodo sync api!"}
 
 
 @app.get("/api_version")
@@ -67,6 +69,20 @@ async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
 
 
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
-#if __name__ == "__main__":
-#    uvicorn.run(app, host="95.217.134.179", port=80)
+
+
+if __name__ == "__main__":
+    ip = get_ip()
+    uvicorn.run(app, host=ip, port=80)
