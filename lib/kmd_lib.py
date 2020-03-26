@@ -3,6 +3,7 @@ import time
 import subprocess
 import platform
 import pycurl
+import stat
 import os
 import re
 import sys
@@ -144,7 +145,10 @@ def setup_binary(link):
         pass
     with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
-    return({"changed to new binary"})
+    os.chmod('/root/komodo/komodod', stat.S_IRWXU)
+    os.chmod('/root/komodo/komodod-cli', stat.S_IRWXU)
+
+    return("changed to new binary")
 
 
 
