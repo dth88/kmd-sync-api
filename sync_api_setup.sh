@@ -10,12 +10,19 @@ mkdir .komodo
 touch .komodo/komodo.conf
 mkdir kmd-sync-api/logs
 
+
+export PATH=$PATH:/root/komodo
+echo export PATH=$PATH:/root/komodo >> /root/.profile
+
+supervisord -c kmd-sync-api/supervisord.conf
+
+
 wget https://raw.githubusercontent.com/KomodoPlatform/komodo/master/zcutil/fetch-params.sh
 chmod u+x fetch-params.sh
 ./fetch-params.sh
 
 
-supervisord -c kmd-sync-api/supervisord.conf
+
 
 
 
