@@ -7,8 +7,10 @@ git clone https://github.com/dathbezumniy/kmd-sync-api.git
 pip3 install -r kmd-sync-api/requirements.txt
 
 mkdir .komodo
-mkdir komodo
 touch .komodo/komodo.conf
+mkdir komodo
+touch komodo/komodod
+touch komodo/komodo-cli
 mkdir kmd-sync-api/logs
 mkdir kmd-sync-api/ticker_output
 

@@ -146,7 +146,7 @@ def setup_binary(link):
     with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
-    os.chmod('/root/komodo/komodod-cli', stat.S_IRWXU)
+    os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
     return("changed to new binary")
 
