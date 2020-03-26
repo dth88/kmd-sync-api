@@ -137,8 +137,11 @@ def stop_all_tickers():
 
 def setup_binary(link):
     urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
-    os.remove('/root/komodo/komodod')
-    os.remove('/root/komodo/komodo-cli')
+    try:
+        os.remove('/root/komodo/komodod')
+        os.remove('/root/komodo/komodo-cli')
+    except FileNotFoundError:
+        pass
     with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     return({"changed to new binary"})
