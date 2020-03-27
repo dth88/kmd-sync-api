@@ -2,6 +2,7 @@
 
 sudo apt-get -y update
 sudo apt-get -y install python3.6 python3-pip git libcurl4-openssl-dev libcurl4-gnutls-dev libssl-dev libgnutls28-dev 
+sudo apt-get install python-pycurl
 pip3 install setuptools 
 pip3 install wheel slick-bitcoinrpc
 
