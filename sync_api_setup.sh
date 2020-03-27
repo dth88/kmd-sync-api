@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get -y update
-sudo apt-get -y install python3.6 python3-pip git libcurl4-openssl-dev libcurl4-gnutls-dev libssl-dev libgnutls28-dev 
+sudo apt-get -y install python3.6 python3-pip git libcurl4-openssl-dev libcurl4-gnutls-dev libssl-dev libgnutls28-dev python3-dev
 sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang
 sudo apt-get -y install python-pycurl
 pip3 install setuptools
