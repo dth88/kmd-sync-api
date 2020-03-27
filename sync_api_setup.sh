@@ -1,11 +1,13 @@
 #!/bin/bash
 
 sudo apt-get -y update
-sudo apt-get -y install python3.6   #libcurl4-openssl-dev libcurl4-gnutls-dev libgnutls28-dev
+sudo apt-get -y install python3.6
 sudo apt-get -y install python3-pip
 sudo apt-get -y install git
 sudo apt-get -y install python3-dev
-sudo apt-get -y install build-essential
+sudo apt-get -y install build-essential 
+sudo apt-get -y install libssl-dev
+sudo apt-get -y install libcurl4-openssl-dev
 
 pip3 install setuptools
 pip3 install wheel
