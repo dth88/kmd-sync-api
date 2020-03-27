@@ -5,7 +5,7 @@ sudo apt-get -y install python3.6
 sudo apt-get -y install python3-pip
 sudo apt-get -y install git
 sudo apt-get -y install python3-dev
-sudo apt-get -y install build-essential 
+sudo apt-get -y install build-essential
 sudo apt-get -y install libssl-dev
 sudo apt-get -y install libcurl4-openssl-dev
 
