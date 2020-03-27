@@ -26,7 +26,7 @@ mkdir kmd-sync-api/ticker_output
 
 
 export PATH=$PATH:/root/komodo
-echo export PATH=$PATH:/root/komodo >> /root/.profile
+echo export PATH=$PATH:/root/komodo >> /root/.bashrc
 
 supervisord -c kmd-sync-api/supervisord.conf
 
