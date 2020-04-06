@@ -114,8 +114,8 @@ def clean_ticker_data(ticker):
     if "KMD" in ticker:
         dirs = [str(kmd_dir + 'blocks/'), str(kmd_dir + 'chainstate/'), str(kmd_dir + 'database/')]
     try:
-        for dir in dirs:
-            shutil.rmtree(dir)
+        for folder in dirs:
+            shutil.rmtree(folder)
         return('cleaning ' + ticker + ' folder')
     except FileNotFoundError:
         pass
