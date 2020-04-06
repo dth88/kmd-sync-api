@@ -134,7 +134,7 @@ def start_all_tickers():
 
 
 def stop_all_tickers():
-    for ticker in ac_tickers:
+    for ticker in ac_tickers[1:]:
         stop_ticker(ticker)
     return('stopping all tickers')
 
