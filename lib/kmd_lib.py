@@ -122,7 +122,7 @@ def clean_ticker_data(ticker):
 
 
 def clean_all_ticker_data():
-    for ticker in ac_tickers:
+    for ticker in ac_tickers[1:]:
         clean_ticker_data(ticker)
     return('cleaning assetchains folders')
 
