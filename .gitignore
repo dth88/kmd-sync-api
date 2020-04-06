@@ -6,3 +6,4 @@ lib/*_7776
 *_7776
 logs/*
 ticker_output/
+.DS_Store

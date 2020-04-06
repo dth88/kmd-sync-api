@@ -128,7 +128,7 @@ def clean_all_ticker_data():
 
 
 def start_all_tickers():
-    for ticker in ac_tickers:
+    for ticker in ac_tickers[1:]:
         start_ticker(ticker)
     return('starting all tickers')
 
