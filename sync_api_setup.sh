@@ -18,6 +18,8 @@ pip3 install -r kmd-sync-api/requirements.txt
 
 mkdir .komodo
 touch .komodo/komodo.conf
+echo rpcuser=myrpcusername >> .komodo/komodo.conf
+echo rpcpassword=myrpcpassword >> .komodo/komodo.conf
 mkdir komodo
 touch komodo/komodod
 touch komodo/komodo-cli
