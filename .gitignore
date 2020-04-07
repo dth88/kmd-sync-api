@@ -5,3 +5,7 @@ lib/*_7776
 *_7776
 logs/*
 ticker_output/
+.DS_Store
+ericswan.session
+ericswan.session-journal
+supervisord.pid
