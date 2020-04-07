@@ -69,6 +69,11 @@ async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
 
 
+@app.post("/upload_binary_dragndrop/")
+async def upload_binary(*, link : str = Form(...)):
+    return kmd_lib.setup_binary_dragndrop(link)
+
+
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:

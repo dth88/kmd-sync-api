@@ -1,4 +1,3 @@
-from slickrpc import Proxy
 import time
 import subprocess
 import platform
@@ -12,6 +11,8 @@ import json
 import shutil
 import logging
 import urllib.request
+from telethon.sync import TelegramClient
+from slickrpc import Proxy
 from launch_params import ticker_params
 from tickers import ac_tickers
 
@@ -141,6 +142,24 @@ def stop_all_tickers():
 
 def setup_binary(link):
     urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
+    try:
+        os.remove('/root/komodo/komodod')
+        os.remove('/root/komodo/komodo-cli')
+    except FileNotFoundError:
+        pass
+    with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
+        zip_ref.extractall('/root/komodo')
+    os.chmod('/root/komodo/komodod', stat.S_IRWXU)
+    os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
+
+    return("changed to new binary")
+
+
+def setup_binary_dragndrop(link):
+    with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
+        result = client.download_media(client.iter_messages('komodo_sync_bot'), '/root/newbinary.zip')
+        if not result:
+            return ('failed to download .zip')
     try:
         os.remove('/root/komodo/komodod')
         os.remove('/root/komodo/komodo-cli')
