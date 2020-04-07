@@ -156,11 +156,12 @@ def setup_binary(link):
 
 
 def setup_binary_dragndrop(link):
-    with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        msg_iterable = client.iter_messages('komodo_sync_bot')
-        result = client.download_media(msg_iterable, '/root/newbinary.zip')
-        if not result:
-            return ('failed to download .zip')
+    client = TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH'])
+    msg_iterable = client.iter_messages('komodo_sync_bot')
+    result = client.download_media(msg_iterable, '/root/newbinary.zip')
+    if not result:
+        return ('failed to download .zip')
+    
     try:
         os.remove('/root/komodo/komodod')
         os.remove('/root/komodo/komodo-cli')
