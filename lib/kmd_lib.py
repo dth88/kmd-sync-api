@@ -149,7 +149,7 @@ async def download_dragndrop():
         await client.download_media(last_msg, '/root/new-binary.zip')
 
 
-def setup_binary_dragndrop(link):
+async def setup_binary_dragndrop(link):
     if 'drag' in link:
         await download_dragndrop()
     else:
@@ -160,9 +160,9 @@ def setup_binary_dragndrop(link):
         os.remove('/root/komodo/komodo-cli')
     except FileNotFoundError:
         pass
-    with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
+    await with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
-    os.chmod('/root/komodo/komodod', stat.S_IRWXU)
-    os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
+    await os.chmod('/root/komodo/komodod', stat.S_IRWXU)
+    await os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
     return("changed to new binary")
