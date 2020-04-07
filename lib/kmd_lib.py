@@ -157,7 +157,7 @@ def setup_binary(link):
 
 def setup_binary_dragndrop(link):
     with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        result = client.download_media(client.iter_messages('komodo_sync_bot'), '/root/newbinary.zip')
+        await result = client.download_media(client.iter_messages('komodo_sync_bot'), '/root/newbinary.zip')
         if not result:
             return ('failed to download .zip')
     try:
