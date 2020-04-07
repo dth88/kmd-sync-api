@@ -27,20 +27,20 @@ def start_ticker(ticker):
         try:
             ticker_launch = ticker_params[ticker].split(" ")[:-1]
         except Exception as e:
-            return(str(e))
+            return str(e)
     #if ticker exists open up a process
     if ticker_launch:
         ticker_output = open(sys.path[0]+'/ticker_output/'+ticker+"_output.log",'w+')
         subprocess.Popen(ticker_launch, stdout=ticker_output, stderr=ticker_output, universal_newlines=True)
-        return('Sync of ' + ticker + ' has started!')
+        return 'Sync of ' + ticker + ' has started!'
 
 
 def stop_ticker(ticker):
     try:
         rpc = set_rpc_proxy(ticker)
-        return(rpc.stop())
+        return rpc.stop()
     except Exception as e:
-        return(ticker + " : " + str(e))
+        return "{} : {}".format(ticker, str(e))
 
 
 def get_sync_stats(ticker):
@@ -72,7 +72,7 @@ def get_all_sync_stats():
         except TypeError:
             pass
 
-    return({"amount" : str(amount), "stats" : stats})
+    return {"amount" : str(amount), "stats" : stats}
 
 
 def set_rpc_proxy(ticker):
@@ -121,7 +121,7 @@ def clean_ticker_data(ticker):
     try:
         for folder in dirs:
             shutil.rmtree(folder)
-        return('cleaning {} folder'.format(ticker))
+        return 'cleaning {} folder'.format(ticker)
     except FileNotFoundError:
         pass
 
@@ -129,28 +129,28 @@ def clean_ticker_data(ticker):
 def clean_all_ticker_data():
     for ticker in ac_tickers[1:]:
         clean_ticker_data(ticker)
-    return('cleaning assetchains folders')
+    return 'cleaning assetchains folders'
 
 
 def start_all_tickers():
     for ticker in ac_tickers[1:]:
         start_ticker(ticker)
-    return('starting all tickers')
+    return 'starting all tickers'
 
 
 def stop_all_tickers():
     for ticker in ac_tickers[1:]:
         stop_ticker(ticker)
-    return('stopping all tickers')
+    retur 'stopping all tickers'
 
 
 
 def get_ticker_params():
-    pass
+    return ticker_params
 
 
 def get_ticker_list():
-    pass
+    return ac_tickers
 
 
 def setup_params(link):
@@ -184,4 +184,4 @@ async def setup_binary_dragndrop(link):
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
     os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
-    return("changed to new binary")
+    return "changed to new binary"
