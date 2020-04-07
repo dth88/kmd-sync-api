@@ -160,9 +160,9 @@ async def setup_binary_dragndrop(link):
         os.remove('/root/komodo/komodo-cli')
     except FileNotFoundError:
         pass
-    await with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
-    await os.chmod('/root/komodo/komodod', stat.S_IRWXU)
-    await os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
+    os.chmod('/root/komodo/komodod', stat.S_IRWXU)
+    os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
     return("changed to new binary")
