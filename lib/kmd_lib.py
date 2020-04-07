@@ -151,7 +151,7 @@ async def download_dragndrop():
 
 def setup_binary_dragndrop(link):
     if 'drag' in link:
-        download_dragndrop()
+        await download_dragndrop()
     else:
         download_binary(link)
     
