@@ -149,7 +149,7 @@ async def download_dragndrop(link):
         await client.download_media(last_msg, '/root/new-binary.zip')
 
 def setup_binary_dragndrop(link):
-    if 'drag' in link['link']:
+    if 'drag' in link:
         download_dragndrop()
     else:
         download_binary(link)
