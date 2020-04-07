@@ -74,7 +74,6 @@ def get_all_sync_stats():
     return({"amount" : str(amount), "stats" : stats})
 
 
-
 def set_rpc_proxy(ticker):
     rpcport = ''
     ac_dir = ''
@@ -140,34 +139,27 @@ def stop_all_tickers():
     return('stopping all tickers')
 
 
-def setup_binary(link):
+def download_binary(link):
     urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
-    try:
-        os.remove('/root/komodo/komodod')
-        os.remove('/root/komodo/komodo-cli')
-    except FileNotFoundError:
-        pass
-    with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
-        zip_ref.extractall('/root/komodo')
-    os.chmod('/root/komodo/komodod', stat.S_IRWXU)
-    os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
-    return("changed to new binary")
 
+async def download_dragndrop(link):
+    async with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
+        last_msg = await client.get_messages('komodo_sync_bot', 1)
+        await client.download_media(last_msg, '/root/new-binary.zip')
 
 def setup_binary_dragndrop(link):
-    client = TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH'])
-    msg_iterable = client.iter_messages('komodo_sync_bot')
-    result = client.download_media(msg_iterable, '/root/newbinary.zip')
-    if not result:
-        return ('failed to download .zip')
+    if 'drag' in link['link']:
+        download_dragndrop()
+    else:
+        download_binary(link)
     
     try:
         os.remove('/root/komodo/komodod')
         os.remove('/root/komodo/komodo-cli')
     except FileNotFoundError:
         pass
-    with zipfile.ZipFile('newbinary.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
     os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
