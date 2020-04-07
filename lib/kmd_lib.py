@@ -124,7 +124,8 @@ def clean_ticker_data(ticker):
         return 'cleaning {} folder'.format(ticker)
     except FileNotFoundError:
         pass
-
+    
+    return 'something probably went wrong... who knows ¯\_(ツ)_/¯'
 
 def clean_all_ticker_data():
     for ticker in ac_tickers[1:]:
@@ -154,15 +155,38 @@ def get_ticker_list():
 
 
 def setup_params(link):
-    shutil.move('/root/kmd-sync-api/launch_params.py', '/root/kmd-sync-api/launch_params_previous.py')
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
-    return "changed to new launch params"
+
+    return "changed to new launch params, we should probably restart api..."
+
+
+def get_default_params():
+    try:
+        from launch_params_default import launch_params
+    except ModuleNotFoundError:
+        return 'there\'s no default launch params file (!woopsidaisy!), just upload a new one"
+    
+    return launch_params
+
+
+def setup_default_params():
+    try:
+        os.remove('/root/kmd-sync-api/launch_params.py')
+    except FileNotFoundError:
+        pass
+    
+    try:
+        shutil.copy('/root/kmd-sync-api/launch_params_default.py', '/root/kmd-sync-api/launch_params.py')
+    except FileNotFoundError:
+        return 'there\'s no previous params file, just upload a new one"
+    
+    return 'successfully changed to previous params, we should probably restart api...'
 
 
 #the security that we deserve
 def restart_api(link):
-    if 'patatap' in link:
-        
+    pass#if 'patatap' in link:
+       
 
 
 
