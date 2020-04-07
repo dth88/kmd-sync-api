@@ -64,6 +64,21 @@ async def start_sync_all():
     return kmd_lib.get_all_sync_stats()
 
 
+@app.get("/tickers_params/")
+async def tickers_params():
+    return kmd_lib.get_ticker_params()
+
+
+@app.get("/tickers_list/")
+async def tickers_list():
+    return kmd_lib.get_ticker_list()
+
+
+@app.get("/upload_params/")
+async def upload_params(*, link : str = Form(...)):
+    return kmd_lib.setup_params(link)
+
+
 @app.post("/upload_binary/")
 async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
