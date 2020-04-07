@@ -10,6 +10,7 @@ import zipfile
 import json
 import shutil
 import logging
+import asyncio
 import urllib.request
 from telethon import TelegramClient
 from slickrpc import Proxy
@@ -143,15 +144,16 @@ def download_binary(link):
     urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
 
 
-async def download_dragndrop():
-    async with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        last_msg = await client.get_messages('komodo_sync_bot', 1)
-        await client.download_media(last_msg, '/root/new-binary.zip')
+def download_dragndrop():
+    with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
+        last_msg = client.get_messages('komodo_sync_bot', 1)
+        client.download_media(last_msg, '/root/new-binary.zip')
 
 
 async def setup_binary_dragndrop(link):
     if 'drag' in link:
-        await download_dragndrop()
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(download_dragndrop())
     else:
         download_binary(link)
     
