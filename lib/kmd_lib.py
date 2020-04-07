@@ -110,13 +110,13 @@ def set_rpc_proxy(ticker):
             #logger.info("check "+coin_config_file)
             return
 
-    return Proxy("http://{}:{}@127.0.0.1:{}".format(rpcuser, rpcpassword, int(rpcport)))
+    return Proxy('http://{}:{}@127.0.0.1:{}'.format(rpcuser, rpcpassword, int(rpcport)))
 
 
 def clean_ticker_data(ticker):
     kmd_dir = '{}/.komodo/'.format(os.environ['HOME'])
     dirs = ['{}{}/'.format(kmd_dir, ticker)]
-    if "KMD" in ticker:
+    if 'KMD' in ticker:
         dirs = ['{}blocks/'.format(kmd_dir), '{}chainstate/'.format(kmd_dir), '{}database/'.format(kmd_dir)]
     try:
         for folder in dirs:
@@ -157,14 +157,14 @@ def get_ticker_list():
 def setup_params(link):
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
 
-    return "changed to new launch params, we should probably restart api..."
+    return 'changed to new launch params, we should probably restart api...'
 
 
 def get_default_params():
     try:
         from launch_params_default import launch_params
     except ModuleNotFoundError:
-        return 'there\'s no default launch params file (!woopsidaisy!), just upload a new one"
+        return 'there\'s no default launch params file (!woopsidaisy!), just upload a new one'
     
     return launch_params
 
@@ -204,4 +204,4 @@ def setup_binary_dragndrop(link):
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
     os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
-    return "changed to new binary"
+    return 'changed to new binary'
