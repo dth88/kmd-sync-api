@@ -143,7 +143,7 @@ def download_binary(link):
     urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
 
 
-async def download_dragndrop(link):
+async def download_dragndrop():
     async with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
         last_msg = await client.get_messages('komodo_sync_bot', 1)
         await client.download_media(last_msg, '/root/new-binary.zip')
