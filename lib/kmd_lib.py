@@ -11,7 +11,6 @@ import json
 import shutil
 import logging
 import urllib.request
-import asyncio
 from telethon import TelegramClient
 from slickrpc import Proxy
 from launch_params import ticker_params
@@ -152,8 +151,7 @@ async def download_dragndrop():
 
 def setup_binary_dragndrop(link):
     if 'drag' in link:
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(download_dragndrop())
+        download_dragndrop()
     else:
         download_binary(link)
     
