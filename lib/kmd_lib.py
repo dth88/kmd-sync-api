@@ -11,7 +11,7 @@ import json
 import shutil
 import logging
 import urllib.request
-from telethon.sync import TelegramClient
+from telethon import TelegramClient
 from slickrpc import Proxy
 from launch_params import ticker_params
 from tickers import ac_tickers
@@ -157,7 +157,8 @@ def setup_binary(link):
 
 def setup_binary_dragndrop(link):
     with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        result = await client.download_media(client.iter_messages('komodo_sync_bot'), '/root/newbinary.zip')
+        msg_iterable = client.iter_messages('komodo_sync_bot')
+        result = client.download_media(msg_iterable, '/root/newbinary.zip')
         if not result:
             return ('failed to download .zip')
     try:
