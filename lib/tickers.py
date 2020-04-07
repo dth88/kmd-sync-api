@@ -1,4 +1,4 @@
-ac_tickers = ["REVS", "SUPERNET", "DEX",
+ac_tickers = ["KMD", "REVS", "SUPERNET", "DEX",
               "PANGEA", "JUMBLR", "BET",
               "CRYPTO", "HODL", "MSHARK",
               "BOTS", "MGW", "COQUICASH", 
