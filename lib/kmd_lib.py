@@ -178,7 +178,7 @@ def setup_default_params():
     try:
         shutil.copy('/root/kmd-sync-api/launch_params_default.py', '/root/kmd-sync-api/launch_params.py')
     except FileNotFoundError:
-        return 'there\'s no previous params file, just upload a new one"
+        return 'there\'s no previous params file, just upload a new one'
     
     return 'successfully changed to previous params, we should probably restart api...'
 
