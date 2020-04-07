@@ -154,26 +154,22 @@ def get_ticker_list():
 
 
 def setup_params(link):
-    pass
+    shutil.move('/root/kmd-sync-api/launch_params.py', '/root/kmd-sync-api/launch_params_previous.py')
+    urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
+    return "changed to new launch params"
 
 
-def download_binary(link):
-    urllib.request.urlretrieve('{}'.format(link), 'newbinary.zip')
+#the security that we deserve
+def restart_api(link):
+    if 'patatap' in link:
+        
 
 
-async def download_dragndrop():
-    async with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        last_msg = await client.get_messages('komodo_sync_bot', 1)
-        await client.download_media(last_msg, '/root/new-binary.zip')
 
+def setup_binary_dragndrop(link):
+    if link:
+        urllib.request.urlretrieve('{}'.format(link), '/root/new-binary.zip')
 
-async def setup_binary_dragndrop(link):
-    if 'drag' in link:
-        loop = asyncio.get_event_loop()
-        await loop.run_until_complete(download_dragndrop())
-    else:
-        download_binary(link)
-    
     try:
         os.remove('/root/komodo/komodod')
         os.remove('/root/komodo/komodo-cli')

@@ -39,7 +39,7 @@ async def chain_sync_stats(ticker: str = "ALL"):
     return kmd_lib.stop_ticker(ticker)
 
 
-@app.get("/sync_start_all/")
+@app.get("/sync_start_all")
 async def start_sync_all():
     return kmd_lib.start_all_tickers()
 
@@ -59,34 +59,39 @@ async def api_version():
     return kmd_lib.clean_all_ticker_data()
 
 
-@app.get("/sync_stats_all/")
+@app.get("/sync_stats_all")
 async def start_sync_all():
     return kmd_lib.get_all_sync_stats()
 
 
-@app.get("/tickers_params/")
+@app.get("/tickers_params")
 async def tickers_params():
     return kmd_lib.get_ticker_params()
 
 
-@app.get("/tickers_list/")
+@app.get("/tickers_list")
 async def tickers_list():
     return kmd_lib.get_ticker_list()
 
 
-@app.get("/upload_params/")
+@app.get("/upload_params")
 async def upload_params(*, link : str = Form(...)):
     return kmd_lib.setup_params(link)
 
 
-@app.post("/upload_binary/")
+@app.post("/upload_binary")
 async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
 
 
-@app.post("/upload_binary_dragndrop/")
+@app.post("/upload_binary_dragndrop")
 async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary_dragndrop(link)
+
+
+@app.post("/restart_api")
+async def upload_binary(*, link : str = Form(...)):
+    return kmd_lib.restart_api(link)
 
 
 def get_ip():
