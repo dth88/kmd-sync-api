@@ -114,14 +114,14 @@ def set_rpc_proxy(ticker):
 
 
 def clean_ticker_data(ticker):
-    kmd_dir = os.environ['HOME'] + '/.komodo/'
-    dirs = [str(kmd_dir + ticker + '/')]
+    kmd_dir = '{}/.komodo/'.format(os.environ['HOME'])
+    dirs = ['{}{}/'.format(kmd_dir, ticker)]
     if "KMD" in ticker:
-        dirs = [str(kmd_dir + 'blocks/'), str(kmd_dir + 'chainstate/'), str(kmd_dir + 'database/')]
+        dirs = ['{}blocks/'.format(kmd_dir), '{}chainstate/'.format(kmd_dir), '{}database/'.format(kmd_dir)]
     try:
         for folder in dirs:
             shutil.rmtree(folder)
-        return('cleaning ' + ticker + ' folder')
+        return('cleaning {} folder'.format(ticker))
     except FileNotFoundError:
         pass
 
