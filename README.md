@@ -1,3 +1,3 @@
-# Komodo telegram sync-api utility
+# Komodo sync-api utility
 
-This sync-API deploys automatically via sync-bot --> https://github.com/dathbezumniy/kmd-sync-bot
+This sync-API deploys automatically via telegram kmd-sync-bot --> https://github.com/dathbezumniy/kmd-sync-bot

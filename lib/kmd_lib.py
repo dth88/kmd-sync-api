@@ -122,7 +122,7 @@ def clean_ticker_data(ticker):
     except FileNotFoundError:
         pass
     
-    return 'something probably went wrong... who knows ¯\_(ツ)_/¯'
+    return 'something probably went wrong... who knows what? not me ¯\_(ツ)_/¯'
 
 
 def clean_all_ticker_data():
@@ -151,20 +151,10 @@ def get_ticker_list():
     return ac_tickers
 
 
-# TODO: dragNdrop!
 def setup_params(link):
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
 
     return 'changed to new launch params, we should restart api for changes to take effect.'
-
-
-def get_default_params():
-    try:
-        from launch_params_default import launch_params
-    except ModuleNotFoundError:
-        return 'there\'s no default launch params file (!woopsidaisy!), just upload a new one'
-    
-    return launch_params
 
 
 def setup_default_params():
@@ -178,12 +168,11 @@ def setup_default_params():
     except FileNotFoundError:
         return 'there\'s no previous params file, just upload a new one'
     
-    return 'successfully changed to previous params, we should probably restart api...'
+    return 'successfully changed to default params, we should restart api...'
 
 
 def setup_binary(link):
-    if link:
-        urllib.request.urlretrieve('{}'.format(link), '/root/new-binary.zip')
+    urllib.request.urlretrieve('{}'.format(link), '/root/new-binary.zip')
 
     try:
         os.remove('/root/komodo/komodod')
@@ -191,8 +180,6 @@ def setup_binary(link):
     except FileNotFoundError:
         pass
 
-    #wait few secs just to make sure new binaries successfully uploaded.
-    time.sleep(5)
     with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
