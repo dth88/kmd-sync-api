@@ -1,20 +1,15 @@
 import os
-import re
 import sys
 import stat
-import json
 import time
-import pycurl
 import shutil
 import zipfile
 import logging
-import asyncio
 import platform
 import subprocess
 import urllib.request
 from slickrpc import Proxy
 from tickers import ac_tickers
-from telethon import TelegramClient
 from xmlrpc.client import ServerProxy
 from launch_params import ticker_params
 
@@ -147,7 +142,6 @@ def stop_all_tickers():
     return 'stopping all tickers'
 
 
-
 def get_ticker_params():
     return ticker_params
 
@@ -206,12 +200,9 @@ def setup_binary_dragndrop(link):
     return 'changed to new binary'
 
 
-
-
 #XML-RPC for Supervisor.
 
-
-#Cyber security that we deserve
+#Cyber-security that we deserve.
 def restart_api(link):
     if 'patatap33' in link:
         proxy = ServerProxy('http://localhost:9001/RPC2')
@@ -222,11 +213,22 @@ def restart_api(link):
         time.sleep(5)
         proxy.supervisor.startProcess('sync-api')
         return 'API is up again'
-    
-    
+
     return 'ha-ha! you dirty hacker'
 
 
 
-def start_zip_download():
-    
+
+
+# deactivated due to issue #6
+#def start_zip_download():
+#    if 'patatap33' in link:
+#        proxy = ServerProxy('http://localhost:9001/RPC2')
+#        proxy.supervisor.startProcess('dragndrop')
+
+
+
+#def receive_confirmation_for_telegram(link):
+#    proxy = ServerProxy('http://localhost:9001/RPC2')
+#    pid = proxy.supervisor.getProcessInfo('dragndrop')['pid']
+#    subprocess.call(['echo', link, ''])

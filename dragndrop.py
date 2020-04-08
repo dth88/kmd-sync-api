@@ -2,14 +2,8 @@ from telethon import TelegramClient
 import os
 import time
 
-
-client = TelegramClient('binaries-monsta-omnomnom', os.environ['API_ID'], os.environ['API_HASH'])
-
-
-#writing pid to file so we can echo to stdin(/proc/pid/fd/0) to pass on the confirmation code for telegram login
-pid = os.getpid()
-with open('dragndrop.pid', 'w') as f:
-   f.write(str(pid))
+#this function is deactivated for now. issue #6
+client = TelegramClient('binary-download', os.environ['API_ID'], os.environ['API_HASH'])
 
 
 async def download_binaries():

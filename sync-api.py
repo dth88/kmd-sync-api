@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
-from fastapi import FastAPI, Form
-import uvicorn
 import socket
-import time
-import json
-import sys
-import os
+import uvicorn
 import logging
 from lib import kmd_lib
-
+from fastapi import FastAPI, Form
 
 ### API CALLS
 app = FastAPI()
@@ -22,11 +17,6 @@ async def root():
 @app.get("/api_version")
 async def api_version():
     return {"version": "0.0.1"}
-
-
-@app.get("/sync_stats/{ticker}")
-async def ticker_sync_stats(ticker: str = "ALL"):
-    return kmd_lib.get_sync_stats(ticker)
 
 
 @app.get("/sync_start/{ticker}")
@@ -84,14 +74,25 @@ async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
 
 
-@app.post("/upload_binary_dragndrop")
-async def upload_binary(*, link : str = Form(...)):
-    return kmd_lib.setup_binary_dragndrop(link)
+#deactivated issue #6
+#@app.post("/upload_binary_dragndrop")
+#async def upload_binary(*, link : str = Form(...)):
+#    return kmd_lib.setup_binary_dragndrop(link)
 
+
+
+
+#RPC CALLS TO SUPERVISOR
 
 @app.post("/restart_api")
 async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.restart_api(link)
+
+
+#deactivated issue #6
+#@app.post("/download_zip")
+#async def upload_binary(*, link : str = Form(...)):
+#    return kmd_lib.restart_api(link)
 
 
 def get_ip():
