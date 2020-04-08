@@ -1,21 +1,23 @@
-import time
-import subprocess
-import platform
-import pycurl
-import stat
 import os
 import re
 import sys
-import zipfile
+import stat
 import json
+import time
+import pycurl
 import shutil
+import zipfile
 import logging
 import asyncio
+import platform
+import subprocess
 import urllib.request
-from telethon import TelegramClient
 from slickrpc import Proxy
-from launch_params import ticker_params
 from tickers import ac_tickers
+from telethon import TelegramClient
+from xmlrpc.client import ServerProxy
+from launch_params import ticker_params
+
 
 
 def start_ticker(ticker):
@@ -154,6 +156,7 @@ def get_ticker_list():
     return ac_tickers
 
 
+# TODO: dragNdrop!
 def setup_params(link):
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
 
@@ -183,13 +186,6 @@ def setup_default_params():
     return 'successfully changed to previous params, we should probably restart api...'
 
 
-#the security that we deserve
-def restart_api(link):
-    pass#if 'patatap' in link:
-       
-
-
-
 def setup_binary_dragndrop(link):
     if link:
         urllib.request.urlretrieve('{}'.format(link), '/root/new-binary.zip')
@@ -199,9 +195,38 @@ def setup_binary_dragndrop(link):
         os.remove('/root/komodo/komodo-cli')
     except FileNotFoundError:
         pass
+
+    #wait few secs just to make sure new binaries successfully uploaded.
+    time.sleep(10)
     with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
     os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
     return 'changed to new binary'
+
+
+
+
+#XML-RPC for Supervisor.
+
+
+#Cyber security that we deserve
+def restart_api(link):
+    if 'patatap33' in link:
+        proxy = ServerProxy('http://localhost:9001/RPC2')
+        #first check if api is running
+        state = proxy.supervisor.getProcessInfo('sync-api')['statename']
+        if 'RUNNING' in state:
+            proxy.supervisor.stopProcess('sync-api')
+        time.sleep(5)
+        proxy.supervisor.startProcess('sync-api')
+        return 'API is up again'
+    
+    
+    return 'ha-ha! you dirty hacker'
+
+
+
+def start_zip_download():
+    

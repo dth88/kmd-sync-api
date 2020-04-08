@@ -2,5 +2,5 @@ fastapi==0.52.0
 uvicorn==0.11.3
 supervisor==4.1.0
 slick-bitcoinrpc==0.1.4
-python-multipart
-
+python-multipart==0.0.5
+telethon==1.11.3

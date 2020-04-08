@@ -1,7 +1,7 @@
 ac_tickers = ["KMD", "REVS", "SUPERNET", "DEX",
               "PANGEA", "JUMBLR", "BET",
               "CRYPTO", "HODL", "MSHARK",
-              "BOTS", "MGW", "COQUICASH", 
+              "BOTS", "MGW", "COQUICASH",
               "KV", "MESH", "AXO", "ETOMIC",
               "BTCH", "NINJA", "OOT", "ZILLA",
               "RFOX", "SEC", "CCL", "PIRATE",
