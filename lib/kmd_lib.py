@@ -124,6 +124,7 @@ def clean_ticker_data(ticker):
     
     return 'something probably went wrong... who knows ¯\_(ツ)_/¯'
 
+
 def clean_all_ticker_data():
     for ticker in ac_tickers[1:]:
         clean_ticker_data(ticker)
@@ -154,7 +155,7 @@ def get_ticker_list():
 def setup_params(link):
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
 
-    return 'changed to new launch params, we should probably restart api...'
+    return 'changed to new launch params, we should restart api for changes to take effect.'
 
 
 def get_default_params():
@@ -180,7 +181,7 @@ def setup_default_params():
     return 'successfully changed to previous params, we should probably restart api...'
 
 
-def setup_binary_dragndrop(link):
+def setup_binary(link):
     if link:
         urllib.request.urlretrieve('{}'.format(link), '/root/new-binary.zip')
 
@@ -191,13 +192,14 @@ def setup_binary_dragndrop(link):
         pass
 
     #wait few secs just to make sure new binaries successfully uploaded.
-    time.sleep(10)
+    time.sleep(5)
     with zipfile.ZipFile('/root/new-binary.zip', 'r') as zip_ref:
         zip_ref.extractall('/root/komodo')
     os.chmod('/root/komodo/komodod', stat.S_IRWXU)
     os.chmod('/root/komodo/komodo-cli', stat.S_IRWXU)
 
     return 'changed to new binary'
+
 
 
 #XML-RPC for Supervisor.

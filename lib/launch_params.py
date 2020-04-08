@@ -14,7 +14,6 @@ ticker_params = {
     "BOTS" : "komodod -ac_name=BOTS -ac_supply=999999 -addnode=95.213.238.98 -deamon &>/dev/null",
     "MGW" : "komodod -ac_name=MGW -ac_supply=999999 -addnode=95.213.238.98 -deamon &>/dev/null",
     "COQUICASH" : "komodod -ac_name=COQUICASH -ac_supply=72000000 -ac_reward=7200000000 -ac_staked=50 -ac_halving=420000 -ac_cc=2 -ac_ccenable=227,235,236,241 -addnode=78.47.108.168 -deamon &>/dev/null",
-    "WLC" : "komodod -ac_name=WLC -ac_supply=210000000 -addnode=95.213.238.98 -deamon &>/dev/null",
     "KV" : "komodod -ac_name=KV -ac_supply=1000000 -addnode=95.213.238.98 -deamon &>/dev/null",
     "MESH" : "komodod -ac_name=MESH -ac_supply=1000007 -addnode=95.213.238.98 -deamon &>/dev/null",
     "AXO" : "komodod -ac_name=AXO -ac_supply=200000000 -ac_ccactivate=130000 -addnode=95.213.238.98 -deamon &>/dev/null",

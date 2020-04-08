@@ -39,6 +39,8 @@ async def api_version():
     return kmd_lib.stop_all_tickers()
 
 
+#### CLEANUP
+
 @app.get("/clean_folder/{ticker}")
 async def chain_sync_stats(ticker: str = "ALL"):
     return kmd_lib.clean_ticker_data(ticker)
@@ -48,6 +50,8 @@ async def chain_sync_stats(ticker: str = "ALL"):
 async def api_version():
     return kmd_lib.clean_all_ticker_data()
 
+
+#### INFO
 
 @app.get("/sync_stats_all")
 async def start_sync_all():
@@ -74,25 +78,11 @@ async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.setup_binary(link)
 
 
-#deactivated issue #6
-#@app.post("/upload_binary_dragndrop")
-#async def upload_binary(*, link : str = Form(...)):
-#    return kmd_lib.setup_binary_dragndrop(link)
-
-
-
-
 #RPC CALLS TO SUPERVISOR
 
 @app.post("/restart_api")
 async def upload_binary(*, link : str = Form(...)):
     return kmd_lib.restart_api(link)
-
-
-#deactivated issue #6
-#@app.post("/download_zip")
-#async def upload_binary(*, link : str = Form(...)):
-#    return kmd_lib.restart_api(link)
 
 
 def get_ip():
