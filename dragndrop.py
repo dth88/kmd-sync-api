@@ -1,14 +1,23 @@
 from telethon import TelegramClient
 import os
+import time
 
 
-
-async def download_dragndrop():
-    async with TelegramClient('ericswan', os.environ['API_ID'], os.environ['API_HASH']) as client:
-        last_msg = await client.get_messages('komodo_sync_bot', 1)
-        await client.download_media(last_msg, '/root/new-binary.zip')
+client = TelegramClient('binaries-monsta-omnomnom', os.environ['API_ID'], os.environ['API_HASH'])
 
 
+#writing pid to file so we can echo to stdin(/proc/pid/fd/0) to pass on the confirmation code for telegram login
+pid = os.getpid()
+with open('dragndrop.pid', 'w') as f:
+   f.write(str(pid))
 
-if '__main__' == '__name__':
-    download_dragndrop()
+
+async def download_binaries():
+    last_msg = await client.get_messages('komodo_sync_bot', 2)
+    last_msg = last_msg[1]
+    if last_msg.document:
+        await last_msg.download_media('/root/new-binaries.zip')
+
+
+with client:
+    client.loop.run_until_complete(download_binaries())

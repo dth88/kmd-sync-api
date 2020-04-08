@@ -9,3 +9,6 @@ ticker_output/
 ericswan.session
 ericswan.session-journal
 supervisord.pid
+*.zip
+*.session
+*.pid
