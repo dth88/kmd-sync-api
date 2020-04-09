@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import stat
 import time
@@ -76,38 +77,32 @@ def set_rpc_proxy(ticker):
     rpcport = ''
     ac_dir = ''
     operating_system = platform.system()
-    if 'Darwin' in operating_system:
-        ac_dir = '{}/Library/Application Support/Komodo'.format(os.environ['HOME'])
-    elif 'Linux' in operating_system:
-        ac_dir = '{}/.komodo'.format(os.environ['HOME'])
-    elif 'Win64' in operating_system or 'Windows' in operating_system:
-        ac_dir = '{}/komodo/'.format(os.environ['APPDATA'])
+    if operating_system == 'Darwin':
+        ac_dir = os.environ['HOME'] + '/Library/Application Support/Komodo'
+    elif operating_system == 'Linux':
+        ac_dir = os.environ['HOME'] + '/.komodo'
+    elif operating_system == 'Win64' or operating_system == 'Windows':
+        ac_dir = '%s/komodo/' % os.environ['APPDATA']
     if ticker == 'KMD':
-        coin_config_file = '{}/komodo.conf'.format(ac_dir)
+        coin_config_file = str(ac_dir + '/komodo.conf')
     else:
-        coin_config_file = '{}/{}/{}.conf'.format(ac_dir, ticker, ticker, '.conf')
-
-    with open(coin_config_file, 'r') as config_file:
-        for line in config_file:
-            line = line.rstrip()
-            if 'rpcuser' in line:
-                rpcuser = line[7:]
-                continue
-            elif 'rpcpassword' in line:
-                rpcpassword = line[11:]
-                continue
-            elif 'rpcport' in line:
-                rpcport = line[7:]
-
-    if not rpcport:
-        if 'KMD' in ticker:
+        coin_config_file = str(ac_dir + '/' + ticker + '/' + ticker + '.conf')
+    with open(coin_config_file, 'r') as f:
+        for line in f:
+            l = line.rstrip()
+            if re.search('rpcuser', l):
+                rpcuser = l.replace('rpcuser=', '')
+            elif re.search('rpcpassword', l):
+                rpcpassword = l.replace('rpcpassword=', '')
+            elif re.search('rpcport', l):
+                rpcport = l.replace('rpcport=', '')
+    if len(rpcport) == 0:
+        if ticker == 'KMD':
             rpcport = 7771
         else:
-            #logger.info("rpcport not in conf file, exiting")
-            #logger.info("check "+coin_config_file)
             return
 
-    return Proxy('http://{}:{}@127.0.0.1:{}'.format(rpcuser, rpcpassword, int(rpcport)))
+    return Proxy("http://%s:%s@127.0.0.1:%d" % (rpcuser, rpcpassword, int(rpcport)))
 
 
 def clean_ticker_data(ticker):
