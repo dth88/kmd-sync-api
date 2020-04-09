@@ -26,10 +26,10 @@ touch komodo/komodo-cli
 mkdir kmd-sync-api/logs
 mkdir kmd-sync-api/ticker_output
 
-
-export PATH=$PATH:/root/komodo
+echo export PYTHONPATH=$PYTHONPATH:/root/kmd-sync-api/lib/
 echo export PATH=$PATH:/root/komodo >> /root/.bashrc
-export PYTHONPATH=/root/kmd-sync-api/lib/
+export PATH=$PATH:/root/komodo
+export PYTHONPATH=$PYTHONPATH:/root/kmd-sync-api/lib/
 supervisord -c kmd-sync-api/supervisord.conf
 
 
