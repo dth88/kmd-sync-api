@@ -149,7 +149,7 @@ def get_ticker_list():
 def setup_params(link):
     urllib.request.urlretrieve('{}'.format(link), '/root/kmd-sync-api/lib/launch_params.py')
 
-    return 'changed to new launch params, we should restart api for changes to take effect.'
+    return 'changed to new launch params, we need to restart api for new params to take effect.'
 
 
 def setup_default_params():
