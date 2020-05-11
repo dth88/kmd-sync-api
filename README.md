@@ -4,7 +4,7 @@
 
 This sync-API deploys automatically via telegram kmd-sync-bot --> https://github.com/dathbezumniy/kmd-sync-bot
 
-## Pre-phase
+## Preface
 This api and telegram kmd-sync-bot are in the very early development stages, so there's basically no security at all, anyone who knows your sync-api server ip address can call endpoints just as bot does. If you need any guidance on how to add features/configure or you want to propose an improvement please do not hesitate to contact me on komodo discord @dth.
 
 For now both bot and api tested only on: Ubuntu 18.04 LTS bionic
