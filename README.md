@@ -15,7 +15,7 @@ For now both bot and api tested only on: Ubuntu 18.04 LTS bionic
 If for some unknown to me reason you would like to install this API without the help of our utility telegram bot then there's a simple .sh script that you can use.
 
 ```sh
-"wget https://raw.githubusercontent.com/dathbezumniy/kmd-sync-api/master/sync_api_setup.sh && chmod u+x sync_api_setup.sh && ./sync_api_setup.sh"
+wget https://raw.githubusercontent.com/dathbezumniy/kmd-sync-api/master/sync_api_setup.sh && chmod u+x sync_api_setup.sh && ./sync_api_setup.sh
 ```
 
 
