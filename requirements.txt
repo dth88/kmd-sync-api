@@ -1,4 +1,4 @@
-fastapi==0.52.0
+fastapi==0.65.2
 uvicorn==0.11.7
 supervisor==4.1.0
 slick-bitcoinrpc==0.1.4
